@@ -5,14 +5,14 @@ use std::io::prelude::*;
 /// Host, associates ip to mac.
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Host {
-    ip: String,
-    mac: String,
+    pub ip: String,
+    pub mac: String,
 }
 
 /// configurations for wol-rs
 #[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Configurations {
-    hosts: Vec<Host>,
+    pub hosts: Vec<Host>,
 }
 
 impl Configurations {
