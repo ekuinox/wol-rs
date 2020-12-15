@@ -1,4 +1,5 @@
 use anyhow::Result;
+use thiserror::Error;
 use std::fs::{read_to_string, OpenOptions};
 use std::io::prelude::*;
 
@@ -14,6 +15,13 @@ pub struct Host {
 pub struct Configurations {
     pub hosts: Vec<Host>,
 }
+
+#[derive(Error, Debug)]
+pub enum ConfigurationsError {
+    #[error("host not found")]
+    HostNotFound,
+}
+pub use ConfigurationsError::*;
 
 impl Configurations {
     /// load configurations from specified path
@@ -43,5 +51,14 @@ impl Configurations {
     pub fn path<'a>() -> &'a str {
         // TODO: %USERPROFILE%
         "./.wol-rs.toml"
+    }
+    /// get hosts by ip address
+    /// if host doesn't exist, return `HostNotFound`.
+    pub fn get_hosts_by_ip(&self, ip: &str) -> Result<&Host> {
+        let ip = self.hosts
+            .iter()
+            .find(|host| host.ip == ip)
+            .ok_or(HostNotFound)?;
+        Ok(ip)
     }
 }
