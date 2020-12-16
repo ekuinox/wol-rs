@@ -1,5 +1,7 @@
 # wol-rs
 
+[![Actions Status](https://github.com/ekuinox/red_drink/wol-rs/build/badge.svg)](https://github.com/ekuinox/wol-rs/actions)
+
 My WoL (Wake on Lan) tool.
 
 ## Goals
