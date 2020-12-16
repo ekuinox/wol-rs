@@ -1,6 +1,6 @@
-name: red_drink
+name: build
 
-on: [push]
+on: push
 
 jobs:
   build:
