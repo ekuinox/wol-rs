@@ -2,6 +2,7 @@ use anyhow::Result;
 use thiserror::Error;
 use std::fs::{read_to_string, OpenOptions};
 use std::io::prelude::*;
+use std::env;
 
 /// Host, associates ip to mac.
 #[derive(Debug, Serialize, Deserialize)]
@@ -42,15 +43,13 @@ impl Configurations {
     }
     /// return path for linux os
     #[cfg(target_os = "linux")]
-    pub fn path<'a>() -> &'a str {
-        // TODO: ~/
-        "./.wol-rs.toml"
+    pub fn path() -> String {
+        format!("{}/.wol-rs.toml", env::var("HOME").expect("$HOME is not defined"))
     }
     /// return path for windows os
     #[cfg(target_os = "windows")]
-    pub fn path<'a>() -> &'a str {
-        // TODO: %USERPROFILE%
-        "./.wol-rs.toml"
+    pub fn path() -> String {
+        format!("{}/.wol-rs.toml", env::var("USERPROFILE").expect("%USERPROFILE% is not defined"))
     }
     /// get hosts by ip address
     /// if host doesn't exist, return `HostNotFound`.

@@ -31,9 +31,9 @@ fn main() -> Result<()> {
 
     // if file does not exists, create with default configurations. 
     // it doesn't matter if the file existed at this stage.
-    let configurations = Configurations::load(path).or_else(|_| -> Result<Configurations> {
+    let configurations = Configurations::load(path.as_str()).or_else(|_| -> Result<Configurations> {
         let default = Configurations::default();
-        let _ = default.save(path)?;
+        let _ = default.save(path.as_str())?;
         Ok(default)
     });
     
