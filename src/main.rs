@@ -93,7 +93,7 @@ fn main() -> Result<()> {
     // wol by ip address.
     if let Some(ip) = matches.value_of("ip") {
         let conf = configurations?;
-        let host = conf.get_hosts_by_ip(ip)?;
+        let host = conf.get_host_by_ip(ip)?;
         let _ = wol(host.mac.as_str(), "255.255.255.255")?;
         println!("send packet to {:}", ip);
         return Ok(());

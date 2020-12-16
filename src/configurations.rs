@@ -64,12 +64,11 @@ impl Configurations {
 
     /// get hosts by ip address
     /// if host doesn't exist, return `HostNotFound`.
-    pub fn get_hosts_by_ip(&self, ip: &str) -> Result<&Host> {
-        let ip = self.hosts
-            .iter()
+    pub fn get_host_by_ip(&self, ip: &str) -> Result<&Host> {
+        let host = self.hosts.iter()
             .find(|host| host.ip == ip)
             .ok_or(HostNotFound)?;
-        Ok(ip)
+        Ok(host)
     }
 
     /// get hosts by nickname
