@@ -72,6 +72,16 @@ impl Configurations {
         Ok(ip)
     }
 
+    /// get hosts by nickname
+    /// if host doesn't exist, return `HostNotFound`.
+    pub fn get_host_by_nickname(&self, nickname: String) -> Result<&Host> {
+        let nickname = Some(nickname);
+        let host = self.hosts.iter()
+            .find(|host| host.nickname == nickname)
+            .ok_or(HostNotFound)?;
+        Ok(host)
+    }
+
     /// add new host
     pub fn add_hosts(&mut self, hosts: Vec<Host>) {
         self.hosts.extend(hosts);

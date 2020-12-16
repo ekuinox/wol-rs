@@ -22,6 +22,10 @@ fn main() -> Result<()> {
             .takes_value(true)
             .short("i")
         )
+        .arg(Arg::with_name("nickname")
+            .takes_value(true)
+            .short("n")
+        )
         .subcommand(SubCommand::with_name("dump")
             .about("dumps configurations if it existed")
         )
@@ -92,6 +96,15 @@ fn main() -> Result<()> {
         let host = conf.get_hosts_by_ip(ip)?;
         let _ = wol(host.mac.as_str(), "255.255.255.255")?;
         println!("send packet to {:}", ip);
+        return Ok(());
+    }
+
+    // wol by host nickname
+    if let Some(nickname) = matches.value_of("nickname").map(|s| s.to_string()) {
+        let conf = configurations?;
+        let host = conf.get_host_by_nickname(nickname)?;
+        let _ = wol(host.mac.as_str(), "255.255.255.255")?;
+        return Ok(());
     }
 
     Ok(())
