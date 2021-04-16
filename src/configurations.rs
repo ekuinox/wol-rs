@@ -62,6 +62,11 @@ impl Configurations {
         format!("{}/.wol-rs.toml", env::var("USERPROFILE").expect("%USERPROFILE% is not defined"))
     }
 
+    #[cfg(target_os = "macos")]
+    pub fn path() -> String {
+        format!("{}/.wol-rs.toml", env::var("HOME").expect("$HOME is not defined"))
+    }
+
     /// get hosts by ip address
     /// if host doesn't exist, return `HostNotFound`.
     pub fn get_host_by_ip(&self, ip: &str) -> Result<&Host> {
