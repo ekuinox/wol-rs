@@ -63,8 +63,16 @@ fn main() -> Result<()> {
 
     // debug dump configuration with file path.
     if let Some(_) = matches.subcommand_matches("dump") {
+        let conf = match configurations {
+            Ok(conf) => conf,
+            _ => { return Ok(()); },
+        };
         println!("File path: {}", path);
-        println!("{:?}", configurations?);
+        for host in &conf.hosts {
+            if let Some(nickname) = &host.nickname {
+                println!("{}: {}, {}", nickname, host.ip, host.mac);
+            }
+        }
         return Ok(());
     }
 
