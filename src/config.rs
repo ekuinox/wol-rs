@@ -35,8 +35,7 @@ impl Config {
     pub fn save(&self, path: impl AsRef<Path>) -> Result<()> {
         let content = toml::to_string(self)?;
         let mut file = OpenOptions::new().create(true).write(true).open(path)?;
-        let r = file.write_all(content.as_bytes())?;
-        Ok(r)
+        file.write_all(content.as_bytes()).map_err(From::from)
     }
 
     /// return path for linux os
@@ -100,7 +99,7 @@ impl Config {
     /// dedup hosts
     pub fn dedup_hosts(&mut self) {
         // remove duplications
-        let _ = self.hosts.dedup_by(|a, b| {
+        self.hosts.dedup_by(|a, b| {
             let eq = a == b;
             // a will be removed, clone b's nickname to a
             if eq && b.nickname.is_none() {

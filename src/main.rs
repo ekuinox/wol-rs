@@ -8,9 +8,11 @@ use std::{
 
 use anyhow::Result;
 use clap::Parser;
-use config::HostConfig;
 
-use crate::{config::Config, wol::wol};
+use crate::{
+    config::{Config, HostConfig},
+    wol::wol,
+};
 
 #[derive(Parser, Debug)]
 #[clap(author, version)]
