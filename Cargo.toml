@@ -10,5 +10,7 @@ edition = "2021"
 mac_address = "1.1.1"
 clap = { version = "4", features = ["derive"]}
 anyhow = { version = "1", features = ["backtrace"] }
+clap = { version = "4", features = ["derive"] }
+mac_address = "1.1.1"
 serde = { version = "1", features = ["derive"] }
 toml = "0.8"
