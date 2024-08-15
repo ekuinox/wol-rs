@@ -6,7 +6,6 @@ use std::{
     path::PathBuf,
 };
 
-use anyhow::Result;
 use clap::Parser;
 
 use crate::{
@@ -47,7 +46,7 @@ pub enum Subcommand {
     Dump,
 }
 
-fn main() -> Result<()> {
+fn main() {
     let Cli { subcommand, config } = Cli::parse();
     let path = config.unwrap_or_else(|| Config::path().into());
 
@@ -102,6 +101,4 @@ fn main() -> Result<()> {
             }
         }
     }
-
-    Ok(())
 }
